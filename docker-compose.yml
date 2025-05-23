@@ -1,50 +1,64 @@
 version: '3.1'
 services:
   app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        restart: unless-stopped
-        working_dir: /var/www/
-        networks:
-            - php_anywhere_network
-        volumes:
-            - ./:/var/www
-        depends_on:
-            - redis
-            - db
-  nginx:
-        image: nginx:alpine
-        restart: unless-stopped
-        networks:
-            - php_anywhere_network
-        ports:
-            - "8000:80"
-        volumes:
-            - ./:/var/www
-            - ./docker/nginx/:/etc/nginx/conf.d/
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: db
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
-    environment:
-      SA_PASSWORD: ${DB_PASSWORD:-sup3rS3cr3t!} # MUST CHANGE
-      ACCEPT_EULA: "Y"
+    working_dir: /var/www/
+    networks:
+      - php_anywhere_network
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+      - db_mysql
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
     networks:
       - php_anywhere_network
     ports:
-    - "1433:1433"
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+
+  db_mysql:
+    image: mysql:8.0
+    container_name: db_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: default_root_password
+      MYSQL_DATABASE: default_app_database     
+    networks:
+      - php_anywhere_network
+    ports:
+      - "3306:3306"
 
   redis:
     image: redis:alpine
     container_name: redis
     restart: always
     environment:
-      REDIS_PASSWORD: ${REDIS_PASSWORD:-sup3rS3cr3t!} # MUST CHANGE
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-sup3rS3cr3t!}
     networks:
       - php_anywhere_network
     ports:
       - "6379:6379"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    networks:
+      - php_anywhere_network
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db_mysql
+      MYSQL_ROOT_PASSWORD: default_root_password
+    depends_on:
+      - db_mysql
 
 networks:
   php_anywhere_network:

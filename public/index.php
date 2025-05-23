@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sistema de Vendas</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -17,7 +17,7 @@
     <!-- Include the above in your HEAD tag -->
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    
+
     <link rel="stylesheet" href="/css/login.css">
 </head>
 
@@ -25,6 +25,9 @@
     <div class="main">
         <div class="container">
             <center>
+                <div class="logo-mobile">
+                    <span class="texto-logo" width="280px">SAS</span>
+                </div>
                 <div class="middle">
                     <div id="login">
                         <form action="javascript:void(0);" method="get">
@@ -44,8 +47,8 @@
                         <div class="clearfix"></div>
 
                     </div> <!-- end login -->
-                    <div class="logo">LOGO
-
+                    <div class="logo">
+                        <span class="texto-logo">SAS</span>
                         <div class="clearfix"></div>
                     </div>
 

@@ -166,3 +166,21 @@ fieldset{
   display: flex;
   width: 600px;
 }
+
+.logo-mobile{
+  display: none;
+}
+
+@media(max-widht: 768px){
+  #login{
+    border-right: 0px solid transparent;
+  }
+
+  .texto-logo{
+    display: none;
+  }
+
+  .logo-mobile{
+  display: block;
+}
+}
