@@ -1,0 +1,12 @@
+# Ignorar dependências
+/vendor/
+/node_modules/
+
+# Ignorar arquivos de ambiente
+.env
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar configurações do editor (VS Code)
+.vscode/
