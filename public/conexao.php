@@ -1,6 +1,6 @@
 <?php
 
-$banco = 'default_app_database';
+$banco = 'sas';
 
 $usuario = 'root';
 

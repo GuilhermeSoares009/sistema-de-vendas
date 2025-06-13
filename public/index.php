@@ -1,3 +1,25 @@
+<?php
+
+require_once("./conexao.php");
+
+$senha = '123';
+$senha_crip = md5($senha);
+
+
+$query = $pdo->query("SELECT * FROM usuarios WHERE nivel = 'SAS' ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+
+if ($total_reg == 0) {
+    $pdo->query("INSERT into usuarios SET empresa = '0', nome = 'Administrador SAS', 
+    cpf = '000.000.000-00', email = 'teste@teste.com.br',
+    senha = '$senha', senha_crip ='$senha_crip', ativo = 'Sim', 
+    foto = 'sem-foto.jpg', nivel = 'SAS' ");
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +40,7 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
@@ -30,10 +52,12 @@
                 </div>
                 <div class="middle">
                     <div id="login">
-                        <form action="javascript:void(0);" method="get">
+                        <form action="./autenticar.php" method="post">
                             <fieldset class="clearfix">
-                                <p><span class="fa fa-user"></span><input type="text" Placeholder="E-mail ou Usuario" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-                                <p><span class="fa fa-lock"></span><input type="password" Placeholder="Senha" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+                                <p><span class="fa fa-user"></span>
+                                    <input type="text" Placeholder="E-mail ou Usuario" name="usuario" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                                <p><span class="fa fa-lock"></span>
+                                    <input type="password" Placeholder="Senha" name="senha" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
 
                                 <div>
                                     <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
